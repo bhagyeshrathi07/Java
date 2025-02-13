@@ -1,4 +1,4 @@
-package com.practice.java.concurrency;
+package com.practice.java.concurrency.threadSafeDataStructures;
 
 import java.util.concurrent.locks.ReentrantLock;
 

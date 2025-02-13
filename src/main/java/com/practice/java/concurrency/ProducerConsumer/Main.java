@@ -1,25 +1,29 @@
 package com.practice.java.concurrency.ProducerConsumer;
 
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class Main {
 
     public static void main(String[] args) {
         int BOUND = 10;
-        int NUM_PRODUCER = 4;
-        int NUM_CONSUMER = Runtime.getRuntime().availableProcessors();
+        int N_PRODUCERS = 4;
+        int N_CONSUMERS = Runtime.getRuntime().availableProcessors();
         int poisonPill = Integer.MAX_VALUE;
-        int poisonPillPerProducer = NUM_CONSUMER / NUM_PRODUCER;
-        int mod = NUM_CONSUMER % NUM_PRODUCER;
+        int poisonPIllPerProducer = N_CONSUMERS / N_PRODUCERS;
+        int mod = N_CONSUMERS % N_PRODUCERS;
 
-        BlockingQueue<Integer> queue = new BlockingQueue<>(BOUND);
+        BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(BOUND);
 
-        for(int i = 1; i < NUM_PRODUCER; i++) {
-            new Thread(new Producer(queue, poisonPill, poisonPillPerProducer)).start();
+        for(int i = 1; i < N_PRODUCERS; i++) {
+            new Thread(new Producer(queue, poisonPill, poisonPIllPerProducer)).start();
         }
 
-        for(int j = 0; j < NUM_CONSUMER; j++) {
+        for(int j = 0; j < N_CONSUMERS; j++) {
             new Thread(new Consumer(queue, poisonPill)).start();
         }
 
-        new Thread(new Producer(queue, poisonPill, poisonPillPerProducer + mod)).start();
+        new Thread(new Producer(queue, poisonPill, poisonPIllPerProducer + mod)).start();
     }
 }

@@ -1,4 +1,4 @@
-package com.practice.java.concurrency.ProducerConsumer;
+package com.practice.java.concurrency.ProducerConsumerWithCustomBlockingQueue;
 
 import java.util.LinkedList;
 import java.util.Queue;

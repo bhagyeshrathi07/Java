@@ -1,7 +1,9 @@
 package com.practice.java.concurrency.ProducerConsumer;
 
+import java.util.concurrent.BlockingQueue;
+
 public class Consumer implements Runnable{
-    private final BlockingQueue<Integer> queue;
+    private BlockingQueue<Integer> queue;
     private final int poisonPill;
 
     public Consumer(BlockingQueue<Integer> queue, int poisonPill) {
@@ -9,17 +11,17 @@ public class Consumer implements Runnable{
         this.poisonPill = poisonPill;
     }
 
+    @Override
     public void run() {
         try {
             while(true) {
-                Integer message = queue.take();
-                if(message.equals(poisonPill)) {
-                    System.out.println("Thread " + Thread.currentThread().getName() + " stopping due to poisonPill");
+                Integer number = queue.take();
+                if(number.equals(poisonPill)) {
                     return;
                 }
-                System.out.println(Thread.currentThread().getName() + "consumed : " + message);
+                System.out.println(Thread.currentThread().getName() + " result: " + number);
             }
-        } catch (InterruptedException e) {
+        } catch(InterruptedException exc) {
             Thread.currentThread().interrupt();
         }
     }

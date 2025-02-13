@@ -1,4 +1,4 @@
-package com.practice.java.concurrency;
+package com.practice.java.concurrency.DiningPhilosophersLocks;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

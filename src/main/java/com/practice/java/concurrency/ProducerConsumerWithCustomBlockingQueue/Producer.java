@@ -1,11 +1,9 @@
-package com.practice.java.concurrency.ProducerConsumerBlockingQueue;
+package com.practice.java.concurrency.ProducerConsumerWithCustomBlockingQueue;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Producer implements Runnable {
-
-    private BlockingQueue<Integer> queue;
+public class Producer implements Runnable{
+    private final BlockingQueue<Integer> queue;
     private final int poisonPill;
     private final int poisonPillPerProducer;
 
@@ -18,14 +16,14 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         try {
-            generate();
-        } catch (InterruptedException exc) {
+            produce();
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-    public void generate() throws InterruptedException{
-        for(int i = 0; i < 100; i++) {
+    public void produce() throws InterruptedException{
+        for(int i = 0; i < 10; i++) {
             queue.put(ThreadLocalRandom.current().nextInt(100));
         }
 

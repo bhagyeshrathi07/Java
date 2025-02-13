@@ -1,4 +1,4 @@
-package com.practice.java.concurrency.ProducerConsumer;
+package com.practice.java.concurrency.threadSafeDataStructures;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -6,12 +6,14 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+//IMPLEMENTATION 1: Using Condition Variables
+
 public class BlockingQueue<T> {
     private final Queue<T> queue;
     private final int capacity;
     private Lock lock;
-    private Condition notFull = lock.newCondition();
-    private Condition notEmpty = lock.newCondition();
+    private final Condition notFull = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition();
 
     public BlockingQueue(int maxCapacity) {
         this.queue = new LinkedList<>();
@@ -46,6 +48,8 @@ public class BlockingQueue<T> {
         }
     }
 }
+
+// IMPLEMENTATION 2 : Using synchronized methods
 
 //public class BlockingQueue<T> {
 //    private final Queue<T> queue;
